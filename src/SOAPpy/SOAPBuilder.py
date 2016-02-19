@@ -249,15 +249,12 @@ class SOAPBuilder:
     # tag of the marshaled element.
 
     def checkref(self, obj, tag, ns_map):
-        if self.depth < 2:
+        if self.depth < 2 or self.use_refs == 0:
             return ''
 
         if not self.ids.has_key(id(obj)):
             n = self.ids[id(obj)] = self.icounter
             self.icounter = n + 1
-
-            if self.use_refs == 0:
-                return ''
 
             if self.depth == 2:
                 return ' id="i%d"' % n
